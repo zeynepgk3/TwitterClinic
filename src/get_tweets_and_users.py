@@ -18,6 +18,9 @@ def getTotalScore(predictions, subjectivies, polarities):
     predictions=pd.Series(predictions)
     predictions=predictions.map(prediction_index)
     predictions=np.array(predictions)
+    polarities=polarities.astype(float)
+    subjectivies=subjectivies.astype(float)
+
     print(predictions)
     print(type(predictions))
 
@@ -76,10 +79,12 @@ def getUserTweets(user, limit):
             polarity = getPolarity(tweet.rawContent)
             subjectivity = getSubjectivity(tweet.rawContent)
             processed_tweet=preprocess(tweet.rawContent)
-            label=predict(processed_tweet)
+            label=predict([processed_tweet])
             print("type(label)")
             print(type(label))
-            tweets.append([tweet.username, tweet.rawContent, label, polarity, subjectivity, tweet.url])
+            tweets.append([tweet.username, tweet.rawContent, label[0], polarity, subjectivity, tweet.url])
+        print("tweets::")
+        print(tweets)
         # print(vars(tweet.rawContent))
         # break
         # tweet_list=[t.rawContent for t in tweet]
@@ -95,13 +100,15 @@ def getUserTweets(user, limit):
     # print(preprocessed_tweets)
 
     # predictions = predict(list(preprocessed_tweets))
-    print("after predict")
-    print(predictions)
+    # print("after predict")
+    # print(predictions)
 
-    subjectivity_list=tweets[:,3]
-    polarity_list=tweets[:,2]
 
-    totalScore=getTotalScore(predictions, subjectivity_list, polarity_list)
+    subjectivity_list=tweets[:,4]
+    polarity_list=tweets[:,3]
+    prediction_list=tweets[:,2]
+
+    totalScore=getTotalScore(prediction_list, subjectivity_list, polarity_list)
     print("getTotalScore(predictions, tweets[:,4], tweets[:,3])")
     print(totalScore)
     analyseTotalScore(totalScore)
