@@ -10,7 +10,7 @@ columns = ['username', 'rawContent', 'label', 'polarity', 'subjectivity', 'url']
 
 def scanUser(username, limitOfTweets):
     result,tweets = getUserTweets(username, limitOfTweets)
-    fileName = username+'_'+current_time+'_results'
+    fileName = current_time+'_'+username+'_results'
     writeToFile(tweets,columns,fileName)
     return result
 

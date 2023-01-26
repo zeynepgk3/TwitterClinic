@@ -28,8 +28,16 @@ STOP_WORDS=stopwords.words("english")
 STOP_WORDS.extend(["'s","'m","'ve","s","#"])
 
 def writeToFile(content, columns, fileName):
+    print(content)
+    print(type(content))
+    print(type(content[0]))
+
+
+    print(columns)
+    print(type(columns))
     print("writing")
-    df=pd.DataFrame(content.transpose(), columns)
+    df=pd.DataFrame(content, columns=columns)
+    
     df.to_csv(fileName)
     print(df)
 

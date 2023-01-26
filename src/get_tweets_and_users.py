@@ -22,25 +22,34 @@ def getTotalScore(predictions, subjectivies, polarities):
 
     predictions = predictions + polarities
     # if subjectivity is zero, then it is not important
-    predictions = predictions * (subjectivies+0.1)
+    predictions = predictions * subjectivies
+    print("p sum")
+    print(predictions.sum())
     
-    totalScore=predictions.sum()/len(predictions)
+    totalScore=(predictions.sum()/len(predictions))*100
+
+    print("t sum")
+    print(totalScore)
+
+    print("totalScore")
+    print(totalScore)
     return totalScore
 
 def analyseTotalScore(result):
-    if result < -0.9:
+    print(result)
+    if result < -0.05:
         return "Critical"
-    elif result < -0.7:
+    elif result < -0.04:
         return "Dangerous"
-    elif result < -0.4:
+    elif result < -0.03:
         return "Sirious"
     elif result < 0:
         return "Stable"
-    elif result < 0.2:
+    elif result < 0.02:
         return "Good"
-    elif result < 0.5:
+    elif result < 0.05:
         return "Great"
-    elif result < 0.8:
+    elif result < 0.08:
         return "Perfect"
     else:
         return "Excellent"
